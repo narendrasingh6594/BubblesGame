@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubble Game</title>
+    <script>
+        if (localStorage.getItem("bubbleGameLoaded")) {
+            document.documentElement.classList.add("skip-load");
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="loadScreen" id="loadScreen">
+    <div class="loadGrid">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+       
+    </div>
+    <div class="loadPercent" id="loadPercent">0%</div>
+    <p class="loadLabel">Loading game...</p>
+</div>
+
+
+    <div class="rulesCard " id="rulesCard">
+    <div class="rulesPanel">
+        <div class="glow glow1"></div>
+        <div class="glow glow2"></div>
+
+        <p class="eyebrow">before you start</p>
+        <h1 class="rulesTitle">Game Rules <span class="dot">📜</span></h1>
+
+        <div class="rulesList">
+            <div class="ruleItem">
+                <span class="ruleIcon">🫧</span>
+                <p>Bulbule pop karke number match karo aur score badhao</p>
+            </div>
+            <div class="ruleItem">
+                <span class="ruleIcon">💣</span>
+                <p>Number <b>1–3</b> wale bulbule <b>bomb</b> hote hain — inse bacho, ye ek life le lete hain</p>
+            </div>
+            <div class="ruleItem">
+                <span class="ruleIcon">❤️</span>
+                <p>Tumhare paas <b>3 lives</b> hain — 3 bomb ya lives khatam = Game Over</p>
+            </div>
+            <div class="ruleItem">
+                <span class="ruleIcon">🎯</span>
+                <p>Score jab Target number ke barabar ho jaye, ek target complete hota hai — <b>3 targets</b> = YOU WIN</p>
+            </div>
+            <div class="ruleItem">
+                <span class="ruleIcon">⏱️</span>
+                <p>Time khatam hote hi (120 sec) game turant khatam ho jayega</p>
+            </div>
+        </div>
+
+        <div class="rulesBtns">
+            <button class="btn-gotit" id="gotItBtn">Got it, Let's Play</button>
+        </div>
+    </div>
+</div>
+
+<div class="stage">
+
+    <div class="screen" id="startScreen">
+        <div class="glow glow1"></div>
+        <div class="glow glow2"></div>
+        <div class="floaters" aria-hidden="true"></div>
+        
+        <div class="panel">
+            <p class="eyebrow">a tiny reflex game</p>
+            <h1 class="logo">POP<span class="dot">!</span></h1>
+            <p class="tagline">Pop bubbles, dodge bombs, beat the clock.</p>
+
+            <div class="target-picker">
+                
+            </div>
+
+            <button class="btn-start" id="startBtn">Start Game</button>
+        </div>
+    </div>
+
+       
+</div>
+
+
+<div class="game">
+<div class="progress-track">
+    <div class="progress-fill" id="progressFill"></div>
+</div>
+    <div class="top">
+
+        <div class="box">
+            <h2>Time</h2>
+            <div class="value" id="time">0</div>
+        </div>
+
+        <div class="box">
+            <h2>Stop </h2>
+            <div class="value" id="stoptime">▐▐</div>
+        </div>
+
+        <div class="box">
+            <h2>Score</h2>
+            <div class="value" id="score">0</div>
+        </div>
+
+        <div class="box">
+            <h2>Target</h2>
+            <div class="value" id="target">0</div>
+        </div>
+
+       <div class="box">
+    <h2>Lives</h2>
+    <div class="value lives" id="lives"></div>
+</div>
+    </div>
+
+    <div class="banner" id="banner"></div>
+
+    <div class="man"></div>
+
+</div>
+
+<div id="gameOverCard" class="gameOverCard">
+
+    <div class="resultCard">
+
+        <h1 id="resultTitle">🏆 YOU WIN</h1>
+
+        <div class="resultBox">
+            <div class="item">
+                <span>⭐ Score</span>
+                <span id="finalScore">25</span>
+            </div>
+
+            <div class="item">
+                <span>🎯 Target</span>
+                <span id="finalTarget">20</span>
+            </div>
+
+            <div class="item">
+                <span>💣 Bombs</span>
+                <span id="finalBomb">2</span>
+            </div>
+
+            <div class="item">
+                <span>Targets Reached</span>
+                <span id="finalTargetSum">3</span>
+            </div>
+            
+             <div class="item">
+                <span>Time</span>
+                <span id="Timeoutline">0</span>
+            </div>
+
+             <div class="item">
+                <span>Medals</span>
+                <span id="Medals">❌</span>
+            </div>
+        </div>
+
+        <button id="restartBtn">🔄 Play Again</button>
+
+    </div>
+
+</div>
+<script src="scripat.js"></script>
+
+</body>
+</html>
