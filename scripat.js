@@ -74,6 +74,28 @@ gotitbtn.addEventListener("click", function () {
     createBubbles(100);
     startTimer(); 
 });
+ 
+const lifepositions = [];
+const bumpPositions = [];
+
+function AddLives(count) {
+     while (lifepositions.length < 3) {
+        let pos = Math.floor(Math.random() * count);
+        if (!lifepositions.includes(pos)) {
+            lifepositions.push(pos);
+        }
+    }
+}
+
+function AddBump(count) {
+     while (bumpPositions.length < 10) {
+        let poss = Math.floor(Math.random() * count);
+        // life aur bomb dono ek hi bubble par overlap na ho
+        if (!bumpPositions.includes(poss) && !lifepositions.includes(poss)) {
+            bumpPositions.push(poss + 1 );
+        }
+    }
+}
 
 function setNewTarget(){
     target = score + (Math.floor(Math.random()*10)+1); 
@@ -154,6 +176,7 @@ else if (score >= 140) {
 else if (score >= 100) {
     medals.innerHTML = "🥇 Gold";
 }
+
 else if (score >= 70) {
     medals.innerHTML = "🥈 Silver";
 }
@@ -182,7 +205,15 @@ else {
 }
 
 function updateLives() {
-    if (lives === 3) {
+    if(lives === 6){
+        livesSpan.innerHTML = "❤️❤️❤️❤️❤️❤️";
+    }
+     else if (lives === 5) {
+        livesSpan.innerHTML = "❤️❤️❤️❤️❤️";
+    }
+     else if (lives === 4) {
+        livesSpan.innerHTML = "❤️❤️❤️❤️";
+    }else if (lives === 3) {
         livesSpan.innerHTML = "❤️❤️❤️";
     }
     else if (lives === 2) {
@@ -210,56 +241,72 @@ function createBubbles(count){
         const bubble = document.createElement("div");
         bubble.classList.add("bubbles");
         bubble.textContent = "";
-        bubble.dataset.number = randomNumber;
+
+        if (lifepositions.includes(i)) {
+            bubble.dataset.life = "true";
+            bubble.classList.add("life");
+        }
+
+        if (bumpPositions.includes(i)) {
+            bubble.dataset.bump = "true";
+        }
 
         bubble.addEventListener("click",function(){
-      if (/*totalClicks <= 0 ||*/ gameOver || isPaused) {
-        return;
-    }
+            if (gameOver || isPaused) {
+                return;
+            }
 
-    if (this.classList.contains("opened")) {
-        return;
-    }
+            if (this.classList.contains("opened")) {
+                return;
+            }
             this.classList.add("opened");
-           // totalClicks--;
-           /// clickSpan.innerText = totalClicks;
 
+            // Life bubble: independent of number/bomb logic, always heals a life
+            if (this.dataset.life === "true") {
+                this.textContent = "❤️";
+                showBanner("❤️ Life Bubble! You gained a life!");
+                bombTarget = Math.max(0, bombTarget - 1); 
+                lives += 1;
+                updateLives();
+                return;
+            }
+
+            bubble.dataset.number = randomNumber;
             this.textContent = this.dataset.number;
 
             let number = Number(this.dataset.number);
-          
-           if (number >= 1 && number <= 3) {
-            bubble.textContent = "💣";
-             bubble.classList.add("bomb");    
-             bombTarget += 1;
-             lives -= 1;
-             updateLives();
-             if(bombTarget === 3){   
-            showBanner("💣 Bomb Target Reached! Game Over!");       
-            resurtTimeout(); 
-             gameOver = true;
-             }        
-            score -= number
-        if (score <= 0) {
-            score = 0;
-        }
-    } else{
-        score += Number(this.dataset.number);
-    }
-   scoreSpan.innerText = score;
-    
-           if(score == number){
-            targetsum += 1;
-            bubble.classList.add("target");  
-            if(targetsum === 3){
-            resurtTimeout(); 
-           gameOver = true;    
+            let isBomb = this.dataset.bump === "true";
+
+            if (isBomb) {
+                bubble.textContent = "💣";
+                bubble.classList.add("bomb");
+                bombTarget += 1;
+                lives -= 1;
+                updateLives();
+                if(bombTarget === 3){
+                    showBanner("💣 Bomb Target Reached! Game Over!");
+                    resurtTimeout();
+                    gameOver = true;
+                }
+                score -= number;
+                if (score <= 0) {
+                    score = 0;
+                }
+            } else {
+                score += number;
             }
+            scoreSpan.innerText = score;
+
+            if(score === target && !isBomb){
+                targetsum += 1;
+                bubble.classList.add("target");
+                if(targetsum === 3){
+                    resurtTimeout();
+                    gameOver = true;
+                } else {
+                    setNewTarget();
+                }
             }
-           /* if(totalClicks == 0){
-            showBanner("Game Over! No more clicks left.");
-             gameOver = true;             
-            } */
         });
         man.appendChild(bubble);
     }
@@ -269,6 +316,7 @@ startBtn.addEventListener("click", function () {
     
    game.classList.add("show");
    rulesCard.classList.add("show");
+     AddLives(100); 
+    AddBump(100);
  //topline.style.display = "flax";
 });
-
