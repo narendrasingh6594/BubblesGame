@@ -73,11 +73,12 @@ gotitbtn.addEventListener("click", function () {
      setNewTarget();
     createBubbles(100);
     startTimer(); 
+    
 });
  
 const lifepositions = [];
 const bumpPositions = [];
-
+const TwoNumberBubblesPositions = [];
 function AddLives(count) {
      while (lifepositions.length < 3) {
         let pos = Math.floor(Math.random() * count);
@@ -107,6 +108,17 @@ function setNewTarget(){
           }
 }
 
+function BonasScore(count) {
+         while (TwoNumberBubblesPositions.length < 5) {
+        let posses = Math.floor(Math.random() * count);
+      
+        if (!bumpPositions.includes(posses) && !lifepositions.includes(posses) && !TwoNumberBubblesPositions.includes(posses)) {
+           TwoNumberBubblesPositions.push(posses);
+        }
+    }
+   
+}
+    
 function showBanner(text){
     banner.textContent = text;
     banner.classList.add("show");
@@ -167,20 +179,19 @@ function showResult() {
 
     const title = document.getElementById("resultTitle");
 
-if (score >= 200) {
+if (score >= 500) {
     medals.innerHTML = "💎 Grand Master";
 }
-else if (score >= 140) {
+else if (score >= 310) {
     medals.innerHTML = "🏆 Champion";
 }
-else if (score >= 100) {
+else if (score >= 170) {
     medals.innerHTML = "🥇 Gold";
 }
-
-else if (score >= 70) {
+else if (score >= 100) {
     medals.innerHTML = "🥈 Silver";
 }
-else if (score >= 30) {
+else if (score >= 50) {
     medals.innerHTML = "🥉 Bronze";
 }
 else {
@@ -233,6 +244,7 @@ function resurtTimeout() {
         showResult();
     }, 1000);
 }
+
 function createBubbles(count){
     for(let i=1;i<=count;i++){
 
@@ -249,6 +261,10 @@ function createBubbles(count){
 
         if (bumpPositions.includes(i)) {
             bubble.dataset.bump = "true";
+        }
+        
+        if (TwoNumberBubblesPositions.includes(i)) {
+            bubble.dataset.ScoreTwo = "true";
         }
 
         bubble.addEventListener("click",function(){
@@ -276,7 +292,7 @@ function createBubbles(count){
 
             let number = Number(this.dataset.number);
             let isBomb = this.dataset.bump === "true";
-
+            let isScoreTwo = this.dataset.ScoreTwo === "true";
             if (isBomb) {
                 bubble.textContent = "💣";
                 bubble.classList.add("bomb");
@@ -292,6 +308,14 @@ function createBubbles(count){
                 if (score <= 0) {
                     score = 0;
                 }
+            } else if (isScoreTwo) {
+                bubble.textContent = number + "×2";
+                bubble.classList.add("scoreTwo");
+                bubble.style.whiteSpace = "nowrap";
+                bubble.style.fontSize = "13px";
+                bubble.classList.add("scoreTwo");
+                score += number * 2;
+                showBanner(" Bonus! Score Doubled!");
             } else {
                 score += number;
             }
@@ -318,5 +342,6 @@ startBtn.addEventListener("click", function () {
    rulesCard.classList.add("show");
      AddLives(100); 
     AddBump(100);
+   BonasScore(100);
  //topline.style.display = "flax";
 });
