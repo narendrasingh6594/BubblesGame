@@ -1,5 +1,4 @@
-<<<<<<< HEAD
- 
+
 const loadScreen = document.getElementById('loadScreen');
 const loadPercent = document.getElementById('loadPercent');
 let pct = 0;
@@ -77,7 +76,7 @@ buyButtons.forEach(button => {
 
     });
 });
-=======
+ 
 const loadScreen = document.getElementById("loadScreen");
 const loadPercent = document.getElementById("loadPercent");
 
@@ -425,4 +424,3 @@ startBtn.addEventListener("click", function () {
    BonasScore(100);
  //topline.style.display = "flax";
 });
->>>>>>> 492510c03cd15b78f4bf9413fcfb749824284743
