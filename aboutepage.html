@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubble Game</title>
+    <script>
+        if (localStorage.getItem("bubbleGameLoaded")) {
+            document.documentElement.classList.add("skip-load");
+        }
+    </script>
+    <link rel="stylesheet" href="aboutepage.css">
+</head>
+<body>
+
+<div class="stage">
+
+    <div class="screen" id="startScreen">
+        <div class="glow glow1"></div>
+        <div class="glow glow2"></div>
+        <div class="floaters" aria-hidden="true"></div>
+        
+        <div class="panel">
+            <p class="eyebrow">a tiny reflex game</p>
+            <h1 class="logo">POP<span class="dot">!</span></h1>
+            <p class="tagline">Pop bubbles, dodge bombs, beat the clock.</p>
+
+            <div class="target-picker">
+                
+            </div>
+          <div class="time-picker">
+    <button class="time-btn " data-time="120">2 Min</button>
+    <button class="time-btn" data-time="300">5 Min</button>
+    <button class="time-btn" data-time="600">10 Min</button>  
+</div>
+        <button class="btn-start" id="startBtn">Start Game</button>
+        </div>
+    </div>
+</div>
+
+<div class="game">
+<div class="progress-track">
+    <div class="progress-fill" id="progressFill"></div>
+</div>
+
+<div class="powerups">
+
+    <div class="powerup" id="shieldPower">
+        <span class="powerIcon">🛡️</span>
+        <span class="powerName">Shield</span>
+        <span class="powerAmount" id="shieldAmount">0</span>
+    </div>
+
+    <div class="powerup" id="lifePower">
+        <span class="powerIcon">❤️</span>
+        <span class="powerName">Life</span>
+        <span class="powerAmount" id="lifeAmount">0</span>
+    </div>
+
+        <div class="powerup" id="timePower">
+            <span class="powerIcon">⏰</span>
+            <span class="powerName">Time</span>
+            <span class="powerAmount" id="timebustAmount">0</span>
+        </div>
+
+    <div class="powerup" id="firePower">
+        <span class="powerIcon">🔥</span>
+        <span class="powerName">Fire</span>
+        <span class="powerAmount" id="fireAmount">0</span>
+    </div>
+
+</div>
+
+    <div class="top">
+
+        <div class="box">
+            <h2>Time</h2>
+            <div class="value" id="time">0</div>
+        </div>
+
+        <div class="box">
+            <h2>Stop </h2>
+            <div class="value" id="stoptime">▐▐</div>
+        </div>
+
+        <div class="box">
+            <h2>Score</h2>
+            <div class="value" id="score">0</div>
+        </div>
+
+        <div class="box">
+            <h2>Target</h2>
+            <div class="value" id="target">0</div>
+        </div>
+
+       <div class="box">
+    <h2>Lives</h2>
+    <div class="value lives" id="lives"></div>
+</div>
+    </div>
+
+    <div class="banner" id="banner"></div>
+
+    <div class="man"></div>
+
+</div>
+
+<div id="gameOverCard" class="gameOverCard">
+
+    <div class="resultCard">
+
+        <h1 id="resultTitle">🏆 YOU WIN</h1>
+
+        <div class="resultBox">
+            <div class="item">
+                <span>⭐ Score</span>
+                <span id="finalScore">25</span>
+            </div>
+
+            <div class="item">
+                <span>🎯 Target</span>
+                <span id="finalTarget">20</span>
+            </div>
+
+            <div class="item">
+                <span>💣 Bombs</span>
+                <span id="finalBomb">2</span>
+            </div>
+
+            <div class="item">
+                <span>Targets Reached</span>
+                <span id="finalTargetSum">3</span>
+            </div>
+            
+             <div class="item">
+                <span>Time</span>
+                <span id="Timeoutline">0</span>
+            </div>
+
+             <div class="item">
+                <span>Medals</span>
+                <span id="Medals">❌</span>
+            </div>
+        </div>
+
+         <div class="item">
+                <span>Coins</span>
+                <span id="finalCoins">💸 0</span>
+            </div>
+            <button id="restartBtn">🔄 Play Again</button>
+        </div>
+
+
+    </div>
+
+</div>
+<script src="aboutepage.js"></script>
+
+</body>
+</html>
